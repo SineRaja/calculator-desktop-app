@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calculator</title>
+        <link href="https://fonts.googleapis.com/css?family=Indie+Flower"
+            rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <link rel="stylesheet" href="./calculator.css">
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.6.4/math.js"
+            integrity="sha512-BbVEDjbqdN3Eow8+empLMrJlxXRj5nEitiCAK5A1pUr66+jLVejo3PmjIaucRnjlB0P9R3rBUs3g5jXc8ti+fQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer">
+          </script>
+        <script>
+           // Function to remove the last character from the display board
+            function removeLastChar() {
+                let displayBoard = document.getElementById("displayBoard");
+                displayBoard.value = displayBoard.value.slice(0, -1);
+            }
+
+            // Function to perform calculation based on the expression in the display board
+            function performCalculation() {
+                let displayBoard = document.getElementById("displayBoard");
+                let expression = displayBoard.value;
+                let result;
+
+                try {
+                    // Convert trigonometric function inputs from degrees to radians
+                    expression = expression.replace(/sin\(/g, 'sin(' + Math.PI / 180 + '*');
+                    expression = expression.replace(/cos\(/g, 'cos(' + Math.PI / 180 + '*');
+                    expression = expression.replace(/tan\(/g, 'tan(' + Math.PI / 180 + '*');
+
+                    // Evaluate the mathematical expression
+                    result = math.evaluate(expression);
+                    displayBoard.value = result;
+                } catch (error) {
+                    // Handle errors by displaying an error message
+                    displayBoard.value = "Error";
+                }
+            }
+
+    // Function to append 'sqrt(' to the display board
+    function squareRoot() {
+        let displayBoard = document.getElementById("displayBoard");
+        displayBoard.value += "sqrt(";
+    }
+
+    // Function to append 'log(' to the display board
+    function base10Log() {
+        let displayBoard = document.getElementById("displayBoard");
+        displayBoard.value += "log(";
+    }
+
+    // Function to append 'pi' to the display board
+    function addPi() {
+        let displayBoard = document.getElementById("displayBoard");
+        displayBoard.value += "pi";
+    }
+
+    // Function to append 'e' to the display board
+    function addE() {
+        let displayBoard = document.getElementById("displayBoard");
+        displayBoard.value += "e";
+    }
+
+    // Function to append '^(' to the display board
+    function addPower() {
+        let displayBoard = document.getElementById("displayBoard");
+        displayBoard.value += "^(";
+    }
+
+          </script>
+    </head>
+    <body>
+        <div id="calculator_container">
+            <h2 class="text-center super-heading">Calculator</h2>
+
+            <form>
+                <table>
+                    <!-- Row 1: Display Board -->
+                    <tr>
+                        <td colspan="6">
+                            <input id="displayBoard" type="text">
+                        </td>
+                    </tr>
+                    <!-- Row 2: Numeric Buttons and Control Buttons -->
+                    <tr>
+                        <td><input type="button" value="1"
+                                onclick="displayBoard.value += '1'"></td>
+                        <td><input type="button" value="2"
+                                onclick="displayBoard.value += '2'"></td>
+                        <td><input type="button" value="3"
+                                onclick="displayBoard.value += '3'"></td>
+                        <td><input style="background-color: #FFD700;"
+                                type="button" value="C"
+                                onclick="displayBoard.value = ''"></td>
+                        <td><input style="background-color: rgb(37, 253, 174);"
+                                type="button" value="⌫"
+                                onclick="removeLastChar()"></td>
+                        <td><input style="background-color: rgb(0, 255, 81); "
+                                type="button" value="="
+                                onclick="performCalculation()"></td>
+                    </tr>
+                    <!-- Row 3: Numeric Buttons and Math Functions -->
+                    <tr>
+                        <td><input type="button" value="4"
+                                onclick="displayBoard.value += '4'"></td>
+                        <td><input type="button" value="5"
+                                onclick="displayBoard.value += '5'"></td>
+                        <td><input type="button" value="6"
+                                onclick="displayBoard.value += '6'"></td>
+                        <td><input style="background-color: #FF6347;"
+                                type="button" value="-"
+                                onclick="displayBoard.value += '-'"></td>
+                        <td><input style="background-color: #8A2BE2;"
+                                type="button" value="%"
+                                onclick="displayBoard.value += '%'"></td>
+                        <td><input style="background-color: #FF4500;"
+                                type="button" value="cos("
+                                onclick="displayBoard.value += 'cos('"></td>
+                    </tr>
+                    <!-- Row 4: Numeric Buttons and Math Functions -->
+                    <tr>
+                        <td><input type="button" value="7"
+                                onclick="displayBoard.value += '7'"></td>
+                        <td><input type="button" value="8"
+                                onclick="displayBoard.value += '8'"></td>
+                        <td><input type="button" value="9"
+                                onclick="displayBoard.value += '9'"></td>
+                        <td><input style="background-color: #ff74e8;"
+                                type="button" value="x"
+                                onclick="displayBoard.value += '*'"></td>
+                        <td><input style="background-color: #00ff0d;"
+                                type="button" value="!"
+                                onclick="displayBoard.value += '!'"></td>
+                        <td><input style="background-color: rgb(229, 255, 81);"
+                                type="button" value="sin("
+                                onclick="displayBoard.value += 'sin('"></td>
+                    </tr>
+                    <!-- Row 5: Numeric Buttons and Math Functions -->
+                    <tr>
+                        <td><input type="button" value="."
+                                onclick="displayBoard.value += '.'"></td>
+                        <td><input type="button" value="0"
+                                onclick="displayBoard.value += '0'"></td>
+                        <td><input type="button" value=","
+                                onclick="displayBoard.value += ','"></td>
+                        <td><input type="button" value="+"
+                                onclick="displayBoard.value += '+'"></td>
+                        <td><input type="button" value="/"
+                                onclick="displayBoard.value += '/'"></td>
+                        <td><input type="button" value="tan("
+                                onclick="displayBoard.value += 'tan('"></td>
+                    </tr>
+                    <!-- Row 6: Constants and Advanced Functions -->
+                    <tr>
+                        <td><input style="background-color: #ae2be2;"
+                                type="button" value="E" onclick="e()"></td>
+                        <td><input style="background-color: #00ff0d;"
+                                type="button" value="pi" onclick="pi()"></td>
+                        <td><input style="background-color: #FF4500;"
+                                type="button" value="^" onclick="power()"></td>
+                        <td><input style="background-color: #2200ff;"
+                                type="button" type="button" value="("
+                                onclick="displayBoard.value += '('"></td>
+                        <td><input style="background-color: #FFD700;"
+                                type="button" type="button" value=")"
+                                onclick="displayBoard.value += ')'"></td>
+                        <td><input style="background-color: rgb(255, 165, 81);"
+                                type="button" value="log(" onclick="base10Log()"></td>
+                    </tr>
+                    <!-- Row 7: Advanced Functions -->
+                    <tr>
+                        <td><input style="background-color: rgb(229, 255, 81);"
+                                type="button" value="sqrt("
+                                onclick="squareRoot()"></td>
+                        <td><input style="background-color: rgb(0, 255, 81); "
+                                type="button" value="ln2"
+                                onclick="displayBoard.value += Math.LN2"></td>
+                        <td><input style="background-color: rgb(0, 200, 255);"
+                                type="button" value="log10("
+                                onclick="base10Log()"></td>
+                        <td><input style="background-color: rgb(43, 226, 122);"
+                                type="button" value="l2e"
+                                onclick="displayBoard.value += Math.LOG2E"></td>
+                        <td><input style="background-color: #ff74e8;"
+                                type="button" value="l10e"
+                                onclick="displayBoard.value += Math.LOG10E"></td>
+                        <td><input style="background-color: #ae2be2;"
+                                type="button" value="exp("
+                                onclick="displayBoard.value += 'exp('"></td>
+                    </tr>
+                </table>
+
+            </form>
+        </body>
+    </html>
